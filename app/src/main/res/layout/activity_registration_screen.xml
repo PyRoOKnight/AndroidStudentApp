@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.student.sample.RegistrationScreen">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="First Name :"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="33dp"
+        android:layout_marginLeft="5dp"
+        android:textSize="20dp"
+        android:id="@+id/fname_lbl" />
+
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/fname_txt"
+        android:layout_alignBaseline="@+id/fname_lbl"
+        android:layout_toRightOf="@+id/fname_lbl"
+        android:layout_toEndOf="@+id/fname_lbl" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Last Name :"
+        android:layout_marginTop="25dp"
+        android:textSize="20dp"
+        android:id="@+id/lname_lbl"
+        android:layout_below="@+id/fname_lbl"
+        android:layout_alignRight="@+id/fname_lbl"
+        android:layout_alignEnd="@+id/fname_lbl" />
+
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/lname_txt"
+        android:layout_alignBaseline="@+id/lname_lbl"
+        android:layout_toRightOf="@+id/lname_lbl"
+        android:layout_toEndOf="@+id/lname_lbl" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" Username :"
+        android:layout_marginTop="25dp"
+        android:textSize="20dp"
+        android:id="@+id/username_lbl"
+        android:layout_below="@+id/lname_lbl"
+        android:layout_alignRight="@+id/lname_lbl"
+        android:layout_alignEnd="@+id/lname_lbl" />
+
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/uname_txt"
+        android:layout_alignBaseline="@+id/username_lbl"
+        android:layout_toRightOf="@+id/username_lbl"
+        android:layout_toEndOf="@+id/username_lbl" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Password :"
+        android:layout_marginTop="25dp"
+        android:textSize="20dp"
+        android:id="@+id/password_lbl"
+        android:layout_below="@+id/username_lbl"
+        android:layout_alignRight="@+id/username_lbl"
+        android:layout_alignEnd="@+id/username_lbl" />
+
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/password_txt"
+        android:inputType="textPassword"
+        android:layout_alignBaseline="@+id/password_lbl"
+        android:layout_toRightOf="@+id/password_lbl"
+        android:layout_toEndOf="@+id/password_lbl" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Confirm Password :"
+        android:layout_marginTop="25dp"
+        android:textSize="20dp"
+        android:id="@+id/cpassword_lbl"
+        android:textAlignment="center"
+        android:layout_below="@+id/password_lbl"
+        android:layout_alignRight="@+id/password_lbl"
+        android:layout_alignEnd="@+id/password_lbl" />
+
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/cpassword_txt"
+        android:inputType="textPassword"
+        android:layout_alignBottom="@+id/cpassword_lbl"
+        android:layout_alignLeft="@+id/password_txt"
+        android:layout_alignStart="@+id/password_txt" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Register"
+        android:id="@+id/registered"
+        android:textSize="24dp"
+        android:textStyle="bold"
+        android:layout_marginTop="46dp"
+        android:layout_below="@+id/cpassword_lbl"
+        android:layout_centerHorizontal="true" />
+
+
+</RelativeLayout>
