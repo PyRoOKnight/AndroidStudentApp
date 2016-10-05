@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -83,6 +84,8 @@ public class RegistrationScreen extends AppCompatActivity implements View.OnClic
         boolean cpassword_empty = (_cpassword == null)||(_cpassword.equalsIgnoreCase(""));
         boolean allentered = !(username_empty || password_empty || fname_empty || lname_empty || cpassword_empty);
 
+        final MyStudentdatabase myStudentdatabase = new MyStudentdatabase(this);
+
 
         if(view.getId() == R.id.registered)
         {
@@ -110,10 +113,21 @@ public class RegistrationScreen extends AppCompatActivity implements View.OnClic
 
             if(allentered && (_cpassword.equals(_password)))
             {
+                Students student = new Students();
+                student.setFname(_fname);
+                student.setLname(_lname);
+                student.setUname(_username);
+                student.setPass(_password);
 
+                myStudentdatabase.insertStudent(student);
+
+
+                Toast.makeText(getApplicationContext(),RegisterEmpty(),Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(RegistrationScreen.this, LoginScreen.class);
                 intent.putExtra("name", _username);
                 intent.putExtra("password",_password);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                finish();
                 startActivity(intent);
             }
         }

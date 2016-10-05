@@ -23,6 +23,7 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
     Button register;
     public static final String MyPref = "myPref";
     SharedPreferences sharedPreferences;
+    final MyStudentdatabase studentdatabase = new MyStudentdatabase(this);
 
 
     @Override
@@ -48,8 +49,6 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
 
         sharedPreferences = getSharedPreferences(MyPref, Context.MODE_PRIVATE);
     }
-
-
 
 
     public String loginEmpty()
@@ -102,8 +101,9 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
     public void showCustomDialog()
     {
 
-        final String _username = username_txt.getText().toString();
+        final String _username = username_txt.getText().toString().toLowerCase();
         final String _password = password_txt.getText().toString();
+
 
         final Dialog dialog = new Dialog(LoginScreen.this);
         dialog.setContentView(R.layout.activity_custom_dialog);
@@ -116,7 +116,7 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
         TextView msg = (TextView)dialog.findViewById(R.id.dialog_msg);
         TextView title = (TextView)dialog.findViewById(R.id.dialog_title);
         title.setText(loginEmpty());
-        msg.setText("Welcome " + _username +"! \nClick Yes to login, No to cancel" );
+        msg.setText("Welcome " + _username.substring(0,1).toUpperCase()+_username.substring(1) +"! \nClick Yes to login, No to cancel" );
 
         final SharedPreferences.Editor editor = sharedPreferences.edit();
 
@@ -124,12 +124,12 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
             @Override
             public void onClick(View v) {
 
-                editor.putString("username",_username);
+                editor.putString("username", _username);
                 editor.putString("passkey",_password);
                 editor.commit();
 
                 Intent intent =  new Intent(LoginScreen.this, HomePage.class);
-                intent.putExtra("name", _username);
+                intent.putExtra("name", studentdatabase.getFullname(_username));
                 startActivity(intent);
                 dialog.dismiss();
 
@@ -152,7 +152,7 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
     public void onClick(View view)
     {
 
-        String _username = username_txt.getText().toString();
+        String _username = username_txt.getText().toString().toLowerCase();
         String _password = password_txt.getText().toString();
         boolean username_empty = (_username == null)||(_username.equalsIgnoreCase(""));
         boolean password_empty = (_password == null)||(_password.equalsIgnoreCase(""));
@@ -169,8 +169,17 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
 
             if(!username_empty && !password_empty)
             {
-                showCustomDialog();
 
+                String pass = studentdatabase.searchString(_username);
+
+                if(_password.equals(pass))
+                {
+                    showCustomDialog();
+                }
+                else {
+
+                    Toast.makeText(getApplicationContext(), "Username or Password Incorrect", Toast.LENGTH_SHORT).show();
+                }
             }
 
         }

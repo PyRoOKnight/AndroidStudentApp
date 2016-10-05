@@ -12,18 +12,19 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
+import java.util.ArrayList;
 
 public class HomePage extends AppCompatActivity implements OnItemClickListener {
 
     TextView welcome_txt;
     Button logout_btn;
     ListView studentlist;
-    int[] imagearray;
-    String[] studentnamearray, studentclassarray;
+    ArrayList<Students> allstudents;
+    MyStudentdatabase studentdatabase;
+    //Students students = new Students();
+    //int[] imagearray;
 
 
     @Override
@@ -31,25 +32,20 @@ public class HomePage extends AppCompatActivity implements OnItemClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
+
         welcome_txt = (TextView)findViewById(R.id.welcome_txt);
         String user = getIntent().getStringExtra("name");
         welcome_txt.append(" " + user);
 
         logout_btn = (Button)findViewById(R.id.logout_btn);
         studentlist = (ListView)findViewById(R.id.studentlist);
-
-
-
-        imagearray = new int[]{R.drawable.campamb, R.drawable.studentboyimg, R.drawable.studentgirlimg,
-                R.drawable.campamb,R.drawable.studentboyimg, R.drawable.studentgirlimg,
-                R.drawable.campamb,R.drawable.studentboyimg,R.drawable.studentgirlimg,R.drawable.studentboyimg};
-
-        studentnamearray = new String[]{"AAAA","SSSS","DDDDDD","FFFFF","GGGG","QQQQQ","WWWW","EEEE","RRRR","TTTTT"};
-        studentclassarray = new String[]{"ECE","CSE","IT","ECE","CSE","IT","ECE","CSE","IT","Mech"};
+        studentdatabase = new MyStudentdatabase(this);
+        allstudents = studentdatabase.getAllStudents();
 
         ListBinder listBinder = new ListBinder();
         studentlist.setAdapter(listBinder);
         studentlist.setOnItemClickListener(this);
+
         logout_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,14 +79,15 @@ public class HomePage extends AppCompatActivity implements OnItemClickListener {
     class ListBinder extends BaseAdapter
     {
 
+
         @Override
         public int getCount() {
-            return imagearray.length;
+            return allstudents.size();
         }
 
         @Override
         public Object getItem(int position) {
-            return null;
+            return allstudents.get(position);
         }
 
         @Override
@@ -101,12 +98,15 @@ public class HomePage extends AppCompatActivity implements OnItemClickListener {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             View view = LayoutInflater.from(HomePage.this).inflate(R.layout.listview_child,null);
-            ImageView studentimg = (ImageView)view.findViewById(R.id.student_image);
+           //ImageView studentimg = (ImageView)view.findViewById(R.id.student_image);
             TextView studentname = (TextView)view.findViewById(R.id.student_name);
             TextView studentclass = (TextView)view.findViewById(R.id.student_class);
-            studentimg.setImageResource(imagearray[position]);
-            studentname.setText(studentnamearray[position]);
-            studentclass.setText(studentclassarray[position]);
+            TextView studentid = (TextView)view.findViewById(R.id.student_id);
+            Students students = (Students) getItem(position);
+            //studentimg.setImageResource(imagearray[position]);
+            studentname.setText(students.getFname() + " " + students.getLname());
+            studentclass.setText(students.getUname());
+            studentid.setText(students.getPass());
             return view;
         }
 
